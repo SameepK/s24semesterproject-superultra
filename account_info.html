@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Details</title>
+    <link rel="stylesheet" href="account_info.css">
+</head>
+<body>
+    <h1>Account Details</h1>
+    <img id="object" src="user-icon.jpeg" alt="User Icon" />
+    <button id="backButton">Back</button>
+    <div class="account_det">
+        <p><strong>Name :</strong><span id="name"></span></p>
+        <p><strong>Username:</strong> <span id="username"></span></p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+        <p><strong>Password:</strong><span id="password"></span></p>
+        <p><strong>Account Number:</strong><span id="number"></span></p>
+    </div>
+    <script src="account_info.js"></script></script>
+</body>
+</html>
+
+
+<!-- 
+function fetchAccountDetails() {
+    fetch('fetch_data.php')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            document.getElementById('username').innerText = data.username;
+            document.getElementById('email').innerText = data.email;
+            document.getElementById('name').innerText = data.name;
+            document.getElementById('number').innerText = data['account number'];
+        })
+        .catch(error => console.error('Error fetching user details:', error));
+} -->
