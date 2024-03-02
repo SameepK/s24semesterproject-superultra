@@ -4,19 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2FA Code</title>
+    <title>2FA Code Verification</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="login-container">
-        <h1>2FA Code</h1>
-        <form id="login-form" action="twofactor.php" method="POST"> <!-- Replace "verify_2fa.php" with your actual PHP verification script -->
+        <h1>2FA Verification</h1>
+        <!-- The form for submitting the 2FA code -->
+        <form id="2fa-form">
             <input type="text" id="2FA" name="2FA" placeholder="Enter Code" required>
-            <button type="submit" id="loginB">Log in</button>
+            <button type="button" id="send2FA">Send 2FA Code</button>
+            <button type="submit" id="verify2FA">Verify Code</button>
         </form>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
+
+
+
 

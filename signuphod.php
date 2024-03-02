@@ -18,23 +18,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data and ensure proper escaping to prevent SQL Injection
     $username = $conn->real_escape_string($_POST['username']);
     $email = $conn->real_escape_string($_POST['email']);
-    //$password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Ensure password is hashed
+    // Hash the password for security
+    //$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     // Prepare SQL and bind parameters
     $sql = "INSERT INTO peace (username, email, password) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
-        // Preparation failed, terminate with an error message
-        die("Preparation failed: (" . $conn->errno . ") " . $conn->error);
+        // Handle error here
+        echo "Preparation failed: (" . $conn->errno . ") " . $conn->error;
     } else {
-        $stmt->bind_param("sss", $username, $email, $password); // Bind parameters
+        $stmt->bind_param("sss", $username, $email, $password); // Corrected to "sss" since there are three parameters
         if ($stmt->execute()) {
-            // Redirect to login page after successful account creation
-            header('Location: send_email.php'); // Adjust to the correct path of your login page
-            exit(); // Prevent further script execution after redirection
+            echo "User registered successfully.";
         } else {
-            // Handle execution failure
-            die("Error: " . $stmt->error);
+            echo "Error: " . $stmt->error;
         }
         $stmt->close();
     }

