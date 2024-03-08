@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="quick_menu.css">
     <style>
         .content {
             display: flex;
@@ -78,55 +79,6 @@
             transform: translateY(-15px) rotate(-45deg);
         }
 
-        .quick-menu {
-            position: fixed;
-            top: 0; /* Adjust the top position as needed to avoid overlapping with header */
-            right: 0;
-            width: 250px;
-            height: 380px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            padding: 10px;
-            border-radius: 8px;
-            display: none;
-        }
-
-        .user-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .user-info img {
-            /*align-self: center;*/
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        .username {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .quick-menu ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .quick-menu li {
-            margin-bottom: 10px;
-        }
-
-        .quick-menu a {
-            text-decoration: none;
-            color: #333;
-        }
-
         header {
             position: fixed;
             top: 0;
@@ -149,23 +101,9 @@
         <div class="bar"></div>
         <div class="bar"></div>
     </div>
-    <div class="quick-menu" style="display: none" id="quickMenu">
-        <div class="user-info">
-            <img src="profile.jpg" alt="Profile Pic">
-            <span class="username">username</span>
-        </div>
-        <ul>
-            <li><a href="#">Account</a></li>
-            <li><a href="#">Financial Goal</a></li>
-            <li><a href="#">Credit Score</a></li>
-            <li><a href="#">Create New Category</a></li>
-            <li><a href="#">Standard Investments</a></li>
-            <li><a href="#">Bond Investments</a></li>
-            <li><a href="#">Combined Expenses</a></li>
-            <li><a href="#">Education</a></li>
-            <li><a href="#">Settings</a></li>
-        </ul>
-    </div>
+    <div class="quick-menu" id="quickMenu" include="./quick_menu.html"></div>
+    <script src="inject.js"></script>
+    <script src="quick_menu.js"></script>
     <div class="content">
         <div class="column">
             <div class="cell budTotal" id="budTotal">

@@ -4,11 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
     
     menuToggle.addEventListener('click', function () {
       this.classList.toggle('active');
-      if (quickMenu.style.display === 'block'){
-        quickMenu.style.display = 'none';
-      } else {
-        quickMenu.style.display = 'block';
-      }
     });
   });
   
