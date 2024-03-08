@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Details</title>
+    <link rel="stylesheet" href="account_info.css">
+</head>
+<body>
+    <h1>Account Details</h1>
+    <img id="object" src="user-icon.jpeg" alt="User Icon" />
+    <button id="backButton">Back</button>
+   <div class="menu">
+        <div class="hamburger-menu" onclick="toggleMenu()">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </div>
+    <div class="account_det">
+        <p><strong>Username:</strong> <span id="username"></span></p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+        <p><strong>Password:</strong><span id="password"></span></p>
+        <p><strong>Account Number:</strong> <input type="text" id="accountNumberInput"></p>
+        <p><strong>Name:</strong> <input type="text" id="nameInput"></p>
+        <button id="saveButton">Save</button>
+    </div>
+    <script src="account_info.js"></script>
+</body>
+</html>
+

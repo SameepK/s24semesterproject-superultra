@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="quick_menu.css">
+    <link rel="stylesheet" href="menu_toggle.css">
+    <style>
+        .content {
+            display: flex;
+            grid-template-columns: 1fr 1fr; /* Two columns */
+            gap: 150px; /* Gap between cells */
+            margin-top: 60px; /* Adjust margin-top to account for header */
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cell {
+            background-color: #f0f0f0; /* Cell background color */
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px;
+            flex-direction: row;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for cell */
+        }
+
+        .budTotal {
+            width: 350px;
+            height: 100px;
+        }
+
+        .budItem {
+            width: 300px;
+            height: 100px;
+        }
+
+        .rightCell {
+            width: 350px;
+            height: 100px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            /*background-color: #333; /* Adjust background color as needed */
+            padding: 15px 0; /* Adjust padding as needed */
+            text-align: center; /* Align text in the center horizontally */
+            color: #333; /* Text color */
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Main Page</h1>
+    </header>
+    <div class="menu-toggle" id="menuToggle">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+    <!--<div class="quick-menu" id="quickMenu" include="./quick_menu.html"></div>-->
+    <!--<script src="inject.js"></script>-->
+    <div class="quick-menu" id="quickMenu">
+        <div class="user-info">
+            <img src="user-icon.jpg" alt="Profile Picture">
+            <span class="username">username</span>
+          </div>
+          <ul class="menu-options">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="#">Account</a></li>
+            <li><a href="#">Financial Goal</a></li>
+            <li><a href="#">Credit Score</a></li>
+            <li><a href="#">Create New Category</a></li>
+            <li><a href="#">Standard Investments</a></li>
+            <li><a href="#">Bond Investments</a></li>
+            <li><a href="#">Combined Expenses</a></li>
+            <li><a href="#">Education</a></li>
+            <li><a href="#">Settings</a></li>
+          </ul>
+    </div>
+    <script src="quick_menu.js"></script>
+    <div class="content">
+        <div class="column">
+            <div class="cell budTotal" id="budTotal">
+                <h2>Total Budget</h2>
+                <p>000.00/000.00</p>
+            </div>
+            <div class="cell budItem" id="bud1">
+                <h2>Category 1</h2>
+                <p>000.00/000.00</p>
+            </div>
+            <div class="cell budItem" id="bud2">
+                <h2>Category 1</h2>
+                <p>000.00/000.00</p>
+            </div>
+            <div class="cell budItem" id="bud2">
+                <h2>Category 1</h2>
+                <p>000.00/000.00</p>
+            </div>
+        </div>
+        <div class="column">
+            <div class="cell rightCell">
+                <h2>Main Account</h2>
+                <p>12345.67</p>
+            </div>
+            <div class="cell rightCell">
+                <h2>Second Account</h2>
+                <p>12345.67</p>
+            </div>
+            <div class="cell rightCell">
+                <h2>Debt Account</h2>
+                <p>-12345.67</p>
+            </div>
+        </div>
+    </div>
+<!--So far added just the burger menu. Will need to throw in the actual main page items too-->
+    <script src="home.js"></script>
+</body>
+</html>
