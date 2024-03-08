@@ -7,6 +7,7 @@
     <title>Main Page</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="quick_menu.css">
+    <link rel="stylesheet" href="menu_toggle.css">
     <style>
         .content {
             display: flex;
@@ -46,39 +47,6 @@
             height: 100px;
         }
 
-        .menu-toggle {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            cursor: pointer;
-            z-index: 1;
-        }
-
-        .bar {
-            width: 100%;
-            height: 8px;
-            background-color: #333;
-            margin: 4px 1%;
-            transition: background-color 0.3s;
-        }
-
-        .menu-toggle.active .bar:nth-child(1) {
-            transform: translateY(15px) rotate(45deg);
-        }
-
-        .menu-toggle.active .bar:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-toggle.active .bar:nth-child(3) {
-            transform: translateY(-15px) rotate(-45deg);
-        }
-
         header {
             position: fixed;
             top: 0;
@@ -101,8 +69,26 @@
         <div class="bar"></div>
         <div class="bar"></div>
     </div>
-    <div class="quick-menu" id="quickMenu" include="./quick_menu.html"></div>
-    <script src="inject.js"></script>
+    <!--<div class="quick-menu" id="quickMenu" include="./quick_menu.html"></div>-->
+    <!--<script src="inject.js"></script>-->
+    <div class="quick-menu" id="quickMenu">
+        <div class="user-info">
+            <img src="profile.jpg" alt="Profile Picture">
+            <span class="username">username</span>
+          </div>
+          <ul class="menu-options">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="#">Account</a></li>
+            <li><a href="#">Financial Goal</a></li>
+            <li><a href="#">Credit Score</a></li>
+            <li><a href="#">Create New Category</a></li>
+            <li><a href="#">Standard Investments</a></li>
+            <li><a href="#">Bond Investments</a></li>
+            <li><a href="#">Combined Expenses</a></li>
+            <li><a href="#">Education</a></li>
+            <li><a href="#">Settings</a></li>
+          </ul>
+    </div>
     <script src="quick_menu.js"></script>
     <div class="content">
         <div class="column">
