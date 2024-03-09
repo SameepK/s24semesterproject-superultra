@@ -18,7 +18,7 @@ if ($conn->connect_error) {
 }
 
 // Create table if it doesn't exist
-$table = "CREATE TABLE IF NOT EXISTS ugos_test_table(
+$table = "CREATE TABLE IF NOT EXISTS peace(
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(30) NOT NULL,
     password VARCHAR(30) NOT NULL,
@@ -40,8 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Hash the password for security
     $hashedPassword = $password;
 
-    // Insert into the correct table 'logins2', not 'ugos_test_table'
-    $sql = "INSERT INTO ugos_test_table (username, password) VALUES (?, ?)";
+    // Insert into the correct table 'logins2', not 'peace'
+    $sql = "INSERT INTO peace (username, password) VALUES (?, ?)";
 
     $stmt = $conn->prepare($sql);
     if ($stmt === false) {
