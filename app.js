@@ -91,29 +91,54 @@ document.getElementById('ResetPassword').addEventListener('click', function() {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    const form = document.querySelector('form');
+    const passwordField = document.querySelector('input[name="password"]');
+    const passwordRequirementsText = document.createElement('div');
+    passwordRequirementsText.innerHTML = "Password must be at least 8 characters long, include at least one uppercase letter, one number, and one special character.";
+    passwordField.parentNode.insertBefore(passwordRequirementsText, passwordField.nextSibling);
+
+    passwordField.addEventListener('input', function() {
+        const value = passwordField.value;
+        const requirementsMet = value.length >= 8 &&
+                                /[A-Z]/.test(value) &&
+                                /\d/.test(value) &&
+                                /[!@#$%^&*()]/.test(value);
+        
+        if (requirementsMet) {
+            passwordRequirementsText.style.color = 'green';
+            passwordRequirementsText.innerHTML = "Password meets all requirements.";
+        } else {
+            passwordRequirementsText.style.color = 'red';
+            passwordRequirementsText.innerHTML = "Password must be at least 8 characters long, include at least one uppercase letter, one number, and one special character.";
+        }
+    });
+    const form = document.querySelector('form[action="signup.php"]');
 
     form.addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent the default form submission
 
         const formData = new FormData(form);
 
-        fetch('signup.php', { // Make sure this matches the action attribute of your form
+        fetch('signup.php', {
             method: 'POST',
             body: formData
         })
         .then(response => response.json())
         .then(data => {
-            alert(data.message); // Show the message as an alert
             if(data.success) {
-                // Optionally, redirect the user or clear the form if the registration was successful
-                // window.location.href = 'login.html'; // Redirect to login page or another success page
-                form.reset(); // Clear the form fields
+                // If signup is successful, redirect to the login page
+                window.location.href = 'login.html';
+            } else {
+                // If there is an error, alert the user
+                alert(data.message);
             }
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        });
     });
 });
+
 
 fetch('signup.php', {
     method: 'POST',

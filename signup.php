@@ -1,5 +1,7 @@
 <?php
 // Establish database connection
+header('Content-Type: application/json');
+
 $servername = "oceanus.cse.buffalo.edu";
 $username = "ddparris"; // Your database username
 $password = "50345153"; // Your database password
@@ -20,7 +22,6 @@ if ($conn->connect_error) {
 
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data and ensure proper escaping to prevent SQL Injection
     $form_username = $conn->real_escape_string($_POST['username']);
     $email = $conn->real_escape_string($_POST['email']);
     $password = $_POST['password'];
@@ -29,41 +30,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if password and confirm password are the same
     if ($password !== $confirm_password) {
         $response['message'] = "Passwords do not match.";
-        echo json_encode($response);
-        exit();
-    }
-
-    // Check for password strength
-    $passwordRequirements = '/(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{8,}/';
-    if (!preg_match($passwordRequirements, $password)) {
-        $response['message'] = "Password must be at least 8 characters long, include at least one uppercase letter, one number, and one special character.";
-        echo json_encode($response);
-        exit();
-    }
-
-    // Hash the password for security
-    //$hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-    // Prepare SQL and bind parameters
-    $sql = "INSERT INTO peace (username, email, password) VALUES (?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    if (!$stmt) {
-        $response['message'] = "Preparation failed: (" . $conn->errno . ") " . $conn->error;
     } else {
-        $stmt->bind_param("sss", $form_username, $email, $password); // Use the hashed password
-        if ($stmt->execute()) {
-            $response['success'] = true;
-            $response['message'] = "User registered successfully.";
+        // Password requirements
+        $passwordRequirements = '/(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{8,}/';
+        if (!preg_match($passwordRequirements, $password)) {
+            $response['message'] = "Password must be at least 8 characters long, include at least one uppercase letter, one number, and one special character.";
         } else {
-            $response['message'] = "Error: " . $stmt->error;
+            // Insert user into database
+            $sql = "INSERT INTO peace (username, email, password) VALUES (?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            if (!$stmt) {
+                $response['message'] = "Preparation failed: (" . $conn->errno . ") " . $conn->error;
+            } else {
+                $stmt->bind_param("sss", $form_username, $email, $password); // Assuming you're hashing password before storing
+                if ($stmt->execute()) {
+                    $response['success'] = true;
+                    $response['message'] = "User registered successfully.";
+                } else {
+                    $response['message'] = "Error: " . $stmt->error;
+                }
+                $stmt->close();
+            }
         }
-        $stmt->close();
     }
+    echo json_encode($response);
 }
 
 $conn->close();
-
-// Encode and return the response as JSON
-echo json_encode($response);
 ?>
-
