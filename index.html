@@ -4,26 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Hamburger Menu Icon -->
+    <div class="hamburger-menu" onclick="toggleMenu()">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+
+    <!-- Slide-in Menu Container -->
+    <div class="menu-container" id="menuContainer">
+        <button type = "submit" id = "loginBb" ><h1 id="securityTitle">Security</h1> </button>
+        <button type = "submit" id = "loginBB" ><h1 id="abby">Abbys Page</h1> </button>
+    </div>
+
     <div class="login-container">
         <h1>Log In</h1>
         <form id="login-form">
             <input type="text" id="username" placeholder="Username" required>
             <input type="password" id="password" placeholder="Password" required>
-            <p></p>
-            <p></p>
-            <p></p>
-            <p></p>
-            
             <button type="submit" id="loginButton">Log in</button>
         </form>
-        <p>New User? </p>
-        <p><button type = "create" id = "CreateAccount">Create an Account</button></p>
+        <div class="actions-container">
+            <p>New User? <button type="button" id="CreateA">Create an Account</button></p>
+            <p>Forgot Password? <button type="button" id="ResetPassword">Reset Password</button></p>
+        </div>
     </div>
-
     <script src="app.js"></script>
+    <script src="appp.js"></script>
 </body>
 </html>
