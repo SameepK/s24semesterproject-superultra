@@ -11,9 +11,12 @@
     <style>
         .content {
             display: flex;
+            width: 50%;
             grid-template-columns: 1fr 1fr; /* Two columns */
-            gap: 150px; /* Gap between cells */
-            margin-top: 60px; /* Adjust margin-top to account for header */
+            gap: 0%; /* Gap between cells */
+            margin-top: 5%; /* Adjust margin-top to account for header */
+            column-gap: 40%;
+            column-width: 40%;
         }
 
         .column {
@@ -25,26 +28,26 @@
 
         .cell {
             background-color: #f0f0f0; /* Cell background color */
-            padding: 10px;
-            border-radius: 8px;
-            margin: 10px;
+            padding: 4%;
+            border-radius: 2%;
+            margin: 8%;
             flex-direction: row;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for cell */
         }
 
         .budTotal {
-            width: 350px;
-            height: 100px;
+            width: 200%;
+            height: 20%;
         }
 
         .budItem {
-            width: 300px;
-            height: 100px;
+            width: 180%;
+            height: 20%;
         }
 
         .rightCell {
-            width: 350px;
-            height: 100px;
+            width: 200%;
+            height: 20%;
         }
 
         header {
@@ -53,7 +56,7 @@
             left: 0;
             width: 100%;
             /*background-color: #333; /* Adjust background color as needed */
-            padding: 15px 0; /* Adjust padding as needed */
+            padding: 3% 0; /* Adjust padding as needed */
             text-align: center; /* Align text in the center horizontally */
             color: #333; /* Text color */
         }
@@ -74,7 +77,7 @@
     <div class="quick-menu" id="quickMenu">
         <div class="user-info">
             <img src="user-icon.jpg" alt="Profile Picture">
-            <span class="username">username</span>
+            <span class="username" id="username">username</span>
           </div>
           <ul class="menu-options">
             <li><a href="home.html">Home</a></li>
