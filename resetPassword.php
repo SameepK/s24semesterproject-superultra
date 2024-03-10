@@ -36,6 +36,20 @@ if (!preg_match($passwordRequirements, $newPassword)) {
     exit;
 }
 
+
+            // Verify the old password
+            if (True) /*NOTE must check that oldPassword and currenHashedPassword correspond*/ {
+                // Update the password
+                $newHashedPassword = $newPassword;
+                $updateStmt = $conn->prepare("UPDATE peace SET password = ? WHERE username = ?");
+                $updateStmt->bind_param("ss", $newHashedPassword, $username);
+                if($updateStmt->execute()) {
+                    echo json_encode(["success" => true, "message" => "Password updated successfully."]);
+                } else {
+                    echo json_encode(["success" => false, "message" => "Error updating password."]);
+                }
+                $updateStmt->close();
+
 // Prepare SQL statement to fetch the user's current password
 $stmt = $conn->prepare("SELECT password FROM peace WHERE email = ?");
 $stmt->bind_param("s", $username);
@@ -59,6 +73,7 @@ if ($result->num_rows > 0) {
             
             if ($updateStmt->execute()) {
                 echo json_encode(['success' => true, 'message' => 'Password updated successfully.']);
+
             } else {
                 echo json_encode(['success' => false, 'message' => 'Error updating password.']);
             }

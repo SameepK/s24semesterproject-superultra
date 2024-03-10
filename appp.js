@@ -1,3 +1,9 @@
+
+document.getElementById('loginBB').addEventListener('click', function(event) {
+    event.preventDefault();
+    window.location.href = 'setting.html'; 
+});
+
 document.getElementById('ResetPassword').addEventListener('click', function(event) {
     event.preventDefault(); // Prevent the default form submission
 
@@ -22,6 +28,7 @@ document.getElementById('ResetPassword').addEventListener('click', function(even
         console.error('Error:', error);
     });
 });
+
 
 
 

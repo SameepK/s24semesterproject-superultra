@@ -5,6 +5,10 @@ document.getElementById('loginBb').addEventListener('click', function(event) {
     window.location.href = 'security.html'; 
 });
 
+document.getElementById('loginBb').addEventListener('click', function(event) {
+    window.location.href = 'security.html'; 
+});
+
 
 /* document.getElementById('login-form').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -39,5 +43,15 @@ function toggleMenu() {
     }
 }
 
+
+
+function toggleMenu() {
+    var menuContainer = document.getElementById('menuContainer');
+    if (menuContainer.style.right == '0px') {
+        menuContainer.style.right = '-250px'; // Hide the menu
+    } else {
+        menuContainer.style.right = '0px'; // Show the menu
+    }
+}
 
 
