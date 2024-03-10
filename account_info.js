@@ -1,54 +1,91 @@
-document.addEventListener("DOMContentLoaded", function() {
-    fetchAccountDetails();
-    let btnBack = document.querySelector('#backButton');
-    btnBack.addEventListener('click', () => {
-        window.history.back();
-    });
+document.getElementById('saveButton').addEventListener('click', function(event) {
+    event.preventDefault();
 
-    let btnSave = document.querySelector('#saveButton');
-    btnSave.addEventListener('click', () => {
-        saveAccountInfo();
-    });
+    // Collect data from inputs
+    const name = document.getElementById('nameInput').value;
+    const accountNumber = document.getElementById('accountNumberInput').value;
+    const username = document.getElementById('usernameInput').value;
+    const password = document.getElementById('passwordInput').value;
+    const email = document.getElementById('emailInput').value;
+
+    // Check if all fields are filled
+    if (name.trim() && accountNumber.trim() && username.trim() && password.trim() && email.trim()) {
+        fetch('save_account_info.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ name, accountNumber, username, password, email })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message); // Assuming the PHP script returns a JSON object with a message property
+            window.location.href = "account_info.html"; // Redirect on success
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        });
+    } else {
+        alert('Please fill in all fields.');
+    }
 });
 
+
+
 function fetchAccountDetails() {
-    fetch('fetch_data.php')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Display user data on the HTML elements
-            document.getElementById('username').innerText = data.username;
-            document.getElementById('email').innerText = data.email;
-            document.getElementById('password').innerText = data.password;
-            document.getElementById('accountNumberInput').value = data.accountNumber;
-            document.getElementById('nameInput').value = data.name;
-        })
-        .catch(error => console.error('Error fetching user details:', error));
+    fetch('save_account_info.php', { // Adjusted to match the correct endpoint
+        method: 'GET'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Update input fields with fetched data
+        document.getElementById('usernameInput').value = data.Username;
+        document.getElementById('emailInput').value = data.Email; 
+        document.getElementById('passwordInput').value = data.Password; // Adjusted to match column names
+        document.getElementById('accountNumberInput').value = data.Account_number; // Adjusted to match column names
+        document.getElementById('nameInput').value = data.Name; // Adjusted to match column names
+    })
+    .catch(error => console.error('Error fetching user details:', error));
 }
 
+
 function saveAccountInfo() {
-    let accountNumber = document.getElementById('accountNumberInput').value;
-    let name = document.getElementById('nameInput').value;
+    window.location.href = "home.html"; 
+    let Username = document.getElementById('usernameInput').value;
+    let Email = document.getElementById('emailInput').value;
+    let Password = document.getElementById('passwordInput').value;
+    let Account_number = document.getElementById('accountNumberInput').value;
+    let Name = document.getElementById('nameInput').value;
+
     fetch('save_account_info.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ accountNumber: accountNumber, name: name })
+        body: JSON.stringify({ Username: Username, Email: Email, Password: Password, Account_number: Account_number, Name: Name }) // Adjusted to match column names
     })
     .then(response => {
         if (!response.ok) {
             throw new Error('Failed to save account information');
         }
         console.log('Account information saved successfully');
+        // Update displayed data after saving
+        displaySavedInfo(Username, Email, Password, Account_number, Name);
     })
     .catch(error => console.error('Error saving account information:', error));
 }
 
+function displaySavedInfo(Username, Email, Password, Account_number, Name) {
+    document.getElementById('usernameInput').value = Username;
+    document.getElementById('emailInput').value = Email;
+    document.getElementById('passwordInput').value = Password;
+    document.getElementById('accountNumberInput').value = Account_number;
+    document.getElementById('nameInput').value = Name;
+}
 
 
 // function fetchAccountDetails() {
