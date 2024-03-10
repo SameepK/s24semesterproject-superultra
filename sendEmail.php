@@ -23,11 +23,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Invalid email format";
     } else {
         // Your email subject
-        $subject = "Logging in";
+        $subject = "Reset Your Password";
 
         // Your email body content
-        $link = "https://www-student.cse.buffalo.edu/CSE442-542/2024-Spring/cse-442aa/home.html";
-        $body = "Hello,\n\nPlease click on the following link to log in: $link\n\nIf you did not request to log in please reset your password.";
+        $link = "https://www-student.cse.buffalo.edu/CSE442-542/2024-Spring/cse-442aa/ugo/";
+        $body = "Hello,\n\nPlease click on the following link to reset your password: $link\n\nIf you did not request a password reset, please ignore this email.";
 
         // Headers
         $headers = "From: ugo@testing.com\r\n";

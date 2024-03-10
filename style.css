@@ -1,3 +1,37 @@
+/* Hamburger Menu Icon */
+.hamburger-menu {
+    cursor: pointer;
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 70px;
+    height: 50px;
+}
+
+.hamburger-menu .bar {
+    height: 7px;
+    width: 100%;
+    background-color: black;
+    border-radius: 10px;
+}
+
+/* Slide-in Menu Container */
+.menu-container {
+    position: fixed;
+    top: 0;
+    right: -250px; /* Start offscreen */
+    width: 250px; /* Width of the menu */
+    height: 100%;
+    background: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
 body {
     font-family: sans-serif;
     display: flex;
@@ -31,11 +65,41 @@ button {
     color: black;
     padding: 12px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: 50px;
     cursor: pointer;
     font-weight: 700;
     margin-top: 10px; /* Adjust as needed */
 }
+html, body, #securityTitle {
+    margin: 0;
+    padding: 0;
+}
+#securityTitle {
+    position:absolute;
+    top: 5%;
+    left: 0;
+    width: 100%;
+    background: none; /* or any background color you want */
+    text-align: center; /* if you want to center the text */
+}
+
+#loginB {
+    background-color: rgb(131, 88, 87); /* Updated color */
+    color: white; /* Changed to white for better contrast */
+    padding: 12px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    margin-top: 10px;
+    font-size: 16px; /* Adjust the font size as necessary */
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Optional: adds a shadow for depth */
+    transition: all 0.3s; /* Smooth transition for hover effects */
+    /* Additional styles if needed */
+}
+
+
 
 button:hover {
     background-color: #45a049;
@@ -57,4 +121,47 @@ button[type="button"] {
     margin-left: 5px; /* Space between text and button */
     padding: 6px 12px; /* Smaller padding for a more compact look */
     font-size: 14px; /* Adjusted font size for button */
+}
+
+#loginBb {
+    display: block; /* Block display to fill the container */
+    width: 150px; /* Adjust width as needed */
+    height: 100px; /* Adjust height as needed */
+    background-color: #f2f2f2; /* Light grey background, change as needed */
+    color: black; /* Text color */
+    border: none; /* No border */
+    border-radius: 30px; /* Rounded corners */
+    margin: auto; /* Center the button horizontally */
+    padding: 0; /* No padding */
+    overflow: hidden; /* Prevents content from spilling outside the border-radius */
+    position: relative; /* Allows absolute positioning inside the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Optional: adds a shadow for depth */
+    transition: all 0.3s; /* Smooth transition for hover effects */
+}
+
+#loginBb:hover {
+    box-shadow: 0px 6px 12px rgba(0, 0, 0,0.5); /* Optional: changes the shadow on hover */
+    transform: translateY(-2px); /* Optional: slight lift effect on hover */
+}
+
+#loginB:hover {
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.7); /* Optional: changes the shadow on hover */
+    transform: translateY(-5px); /* Optional: slight lift effect on hover */
+}
+
+#loginBb:active {
+    transform: translateY(1px); /* Optional: presses down effect on click */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Optional: less shadow on click */
+}
+
+#loginBb h1 {
+    margin: 0; /* Remove default margin */
+    position: absolute; /* Absolute position within the button */
+    top: 50%; /* Align top at 50% of button height */
+    left: 50%; /* Align left at 50% of button width */
+    transform: translate(-50%, -50%); /* Center the title */
+    font-size: 24px; /* Adjust font size as needed */
+    font-weight: normal; /* Adjust font weight as needed */
+    color: inherit; /* Inherit text color from the button */
 }
