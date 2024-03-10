@@ -12,4 +12,15 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   });
-  
+
+  fetch('quick_menu.php')
+  .then(response => response.json())
+  .then(data => {
+    if (data && data.username) {
+      // Update the username element in the quick menu
+      usernameElement.textContent = data.username;
+    }
+  })
+  .catch(error => {
+    console.error('Error fetching username:', error);
+  });
