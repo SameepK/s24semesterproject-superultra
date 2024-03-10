@@ -1,11 +1,5 @@
 
-document.getElementById('loginB').addEventListener('click', function(event) {
-    event.preventDefault();
-    window.location.href = "resetPassword.html"; 
-});
-
-
-/*document.getElementById('rrr').addEventListener('click', function(event) {
+document.getElementById('rrr').addEventListener('click', function(event) {
     event.preventDefault();
 
     const username = document.getElementById('reset-username').value;
@@ -31,4 +25,4 @@ document.getElementById('loginB').addEventListener('click', function(event) {
         alert('Please fill in all fields.');
     }
 
-});*/
+});

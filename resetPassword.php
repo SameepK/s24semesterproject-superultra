@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $currentHashedPassword = $row['password'];
 
             // Verify the old password
-            if (True) {
+            if (True) /*NOTE must check that oldPassword and currenHashedPassword correspond*/ {
                 // Update the password
                 $newHashedPassword = $newPassword;
                 $updateStmt = $conn->prepare("UPDATE peace SET password = ? WHERE username = ?");
