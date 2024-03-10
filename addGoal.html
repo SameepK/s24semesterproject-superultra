@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Add Goals</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>SuperUltra</h1>
             <nav>
-                <ul>
+                <ul> 
                     <li><a href="financialGoal.html"><img src="return-57.png" alt="Back" class="nav-img"></a></li>
                     <li><a href="#menu"><img src="menu.png" alt="Menu" class="nav-img"></a></li>
                 </ul>
@@ -21,16 +20,41 @@
         <main>
             <section class="goalContainer"> 
                 <h1>Add Goal</h1>
-                <form id="goal-form"> <!-- Changed the ID to be more descriptive -->
-                    <input type="text" id="goal-name" placeholder="Enter Here"> <!-- More descriptive IDs for the inputs -->
-                    <input type="text" id="total-amount" placeholder="Enter Here">
-                    <input type="text" id="current-budget" placeholder="Enter Here">            
-                    <button type="button" id="save-goal">Save</button>
+                <form id="goal-form"> 
+                    <input type="text" id="goalsName" placeholder="Goal Name">
+                    <input type="text" id="totalAmount" placeholder="Total Amount">
+                    <input type="text" id="currentBudget" placeholder="Current Budget">            
+                    <button type="submit" id="save-goal">Save</button>
                 </form>
             </section>
         </main>
     </div>
     
-    <script src="app.js"></script>
+    <!-- <script src="cod.js"></script> -->
+    <script >
+        document.getElementById('goal-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const goalsName = document.getElementById('goalsName').value;
+    const totalAmount = document.getElementById('totalAmount').value;
+    const currentBudget = document.getElementById('currentBudget').value;
+
+    if (goalsName.trim() !== '' && totalAmount.trim() !== '' && currentBudget.trim() !== '') {
+        fetch('updateBudge.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ goalsName, totalAmount, currentBudget }) 
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message); 
+            window.location.href = "financialGoal.html"; // Redirect on success
+        }) 
+        .catch(error => console.error('Error:', error));
+    } else {
+        alert('Please enter all the fields.');
+    }
+});
+    </script>
 </body>
 </html>

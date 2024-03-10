@@ -54,8 +54,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($stmt->execute()) {
         echo json_encode(['success' => true, 'message' => 'New record created successfully']);
     } else {
-        echo json_encode(['success' => false, 'message' => 'Failed to register user']);
+        echo json_encode(['success' => false, 'message' => 'Failed to register user', 'error' => $stmt->error, 'errno' => $stmt->errno]);
     }
+    
 
     // Close statement
     $stmt->close();

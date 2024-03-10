@@ -1,14 +1,16 @@
-document.getElementById('ResetPassword').addEventListener('click', function(event) {
-    window.location.href = "resetPassword.html";
 
+
+
+document.getElementById('loginBb').addEventListener('click', function(event) {
+    window.location.href = 'security.html'; 
 });
 
-document.getElementById('CreateA').addEventListener('click', function(event) {
-    window.location.href = 'create_account.html'; 
+document.getElementById('loginBb').addEventListener('click', function(event) {
+    window.location.href = 'security.html'; 
 });
 
 
-document.getElementById('login-form').addEventListener('submit', function(event) {
+/* document.getElementById('login-form').addEventListener('submit', function(event) {
     event.preventDefault();
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -30,5 +32,26 @@ document.getElementById('login-form').addEventListener('submit', function(event)
     } else {
         alert('Please enter both username and password.');
     }
-});
+}); */
+
+function toggleMenu() {
+    var menuContainer = document.getElementById('menuContainer');
+    if (menuContainer.style.right == '0px') {
+        menuContainer.style.right = '-250px'; // Hide the menu
+    } else {
+        menuContainer.style.right = '0px'; // Show the menu
+    }
+}
+
+
+
+function toggleMenu() {
+    var menuContainer = document.getElementById('menuContainer');
+    if (menuContainer.style.right == '0px') {
+        menuContainer.style.right = '-250px'; // Hide the menu
+    } else {
+        menuContainer.style.right = '0px'; // Show the menu
+    }
+}
+
 

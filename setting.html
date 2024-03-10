@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SuperUltra Settings</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="stylesAbby.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>SuperUltra</h1>
             <nav>
                 <ul>
-                    <li><a href="#back"><img src="return-57.png" alt="Back" class="nav-img"></a></li>
+                    <li><a href="home.html"><img src="return-57.png" alt="Back" class="nav-img"></a></li>
                     <li><a href="#menu"><img src="menu.png" alt="Menu" class="nav-img"></a></li>
                 </ul>
             </nav>
@@ -26,12 +25,15 @@
             <section class="settings-options">
                 <button class="option" id="DebtPayoffPlan">Debt Pay off Plan</button>
                 <button class="option" id="FinancialGoal">Financial Goals</button>
-                <button class="option" id="CategoriesIncludeTransactions">Categories to include in transactions</button>
-                <button class="option" id="ExportTransactionHistory">Export Transaction History</button>
-                <button class="option" id="Security">Security</button>
+                
+                <button class="option" id="home" onclick="window.location.href='home.html';">Categories to include in transactions(homePgae)</button>
+                <!-- Add similar onclick attributes for other buttons, changing the URL as needed -->
+                
+                <button class="option" id="ExportTransactionHistory" onclick="window.location.href='ExportTransactionHistory.html';">Export Transaction History</button>
+                <button class="option" id="Security" onclick="window.location.href='security.html';">Security</button>
             </section>
         </main>
     </div>
-    <script src="app1.js"></script>
+    <script src="code2.js"></script>
 </body>
 </html>
