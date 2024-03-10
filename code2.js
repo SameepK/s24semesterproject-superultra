@@ -7,8 +7,8 @@ document.getElementById('FinancialGoal').addEventListener('click', function(even
     window.location.href = "financialGoal.html"; 
 });
 
-document.getElementById('CategoriesIncludeTransactions').addEventListener('click', function(event) {
-    window.location.href = "CategoriesIncludeTransactions.html"; 
+document.getElementById('home').addEventListener('click', function(event) {
+    window.location.href = "home.html"; 
 });
 
 document.getElementById('ExportTransactionHistory').addEventListener('click', function(event) {
