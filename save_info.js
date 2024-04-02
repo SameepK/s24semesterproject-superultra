@@ -18,7 +18,7 @@ document.getElementById('saveButton').addEventListener('click', function(event) 
         .then(response => response.json())
         .then(data => {
             alert(data.message); // Assuming the PHP script returns a JSON object with a message property
-            window.location.href = "account_info.html"; // Redirect on success
+            window.location.href = `display_info.html?userId=${data.userId}`;
         })
         .catch(error => {
             console.error('Error:', error);
@@ -28,30 +28,6 @@ document.getElementById('saveButton').addEventListener('click', function(event) 
         alert('Please fill in all fields.');
     }
 });
-
-
-
-function fetchAccountDetails() {
-    fetch('save_account_info.php', { // Adjusted to match the correct endpoint
-        method: 'GET'
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        // Update input fields with fetched data
-        document.getElementById('usernameInput').value = data.Username;
-        document.getElementById('emailInput').value = data.Email; 
-        document.getElementById('passwordInput').value = data.Password; // Adjusted to match column names
-        document.getElementById('accountNumberInput').value = data.Account_number; // Adjusted to match column names
-        document.getElementById('nameInput').value = data.Name; // Adjusted to match column names
-    })
-    .catch(error => console.error('Error fetching user details:', error));
-}
-
 
 function saveAccountInfo() {
     window.location.href = "home.html"; 
@@ -86,21 +62,3 @@ function displaySavedInfo(Username, Email, Password, Account_number, Name) {
     document.getElementById('accountNumberInput').value = Account_number;
     document.getElementById('nameInput').value = Name;
 }
-
-
-// function fetchAccountDetails() {
-//     fetch('fetch_data.php')
-//         .then(response => {
-//             if (!response.ok) {
-//                 throw new Error('Network response was not ok');
-//             }
-//             return response.json();
-//         })
-//         .then(data => {
-//             document.getElementById('username').innerText = data.username;
-//             document.getElementById('email').innerText = data.email;
-//             document.getElementById('name').innerText = data.name;
-//             document.getElementById('password').innerText = data.password;
-//         })
-//         .catch(error => console.error('Error fetching user details:', error));
-// }
