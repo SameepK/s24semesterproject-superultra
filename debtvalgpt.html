@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Debt Value Page</title>
+<link rel="stylesheet" href="debtvalgpt.css">
+<link rel="stylesheet" href="menu_toggle.css">
+<link rel="stylesheet" href="quick_menu.css">
+</head>
+<body>
+  <div style="display: flex; justify-content: center;">
+    <button onclick="window.location.href='home.html';" style="margin: 10px; width: 250px; height: 45px; font-size: 12px;">Back to Home</button>
+  </div>
+
+    <div class="quick-menu" id="quickMenu">
+        <div class="user-info">
+            <img src="user-icon.jpg" alt="Profile Picture">
+            <span class="username" id="username">username</span>
+          </div>
+          <ul class="menu-options">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="#">Account</a></li>
+            <li><a href="financialGoal.html">Financial Goal</a></li>
+            <li><a href="CostomizeCategory.html">Create New Category</a></li>
+            <li><a href="#">Standard Investments</a></li>
+            <li><a href="#">Bond Investments</a></li>
+            <li><a href="setting.html">Settings</a></li>
+          </ul>
+    </div>
+    <div class="menu-toggle" id="menuToggle">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+    <script src="quick_menu.js"></script>
+
+<div class="container">
+  <h2>Debt Summary</h2>
+  <div class="debt-summary">
+    <p>Total Debt: $0.00</p>
+    <p>Average Interest Rate: 0%</p>
+    <p>Total Monthly Payment: $0.00</p>
+  </div>
+
+  <h2>List of Debts</h2>
+  <div class="debt-list">
+    <form id="addDebtForm">
+        <input type="text" name="creditor" placeholder="Creditor" required>
+        <input type="number" name="balance" placeholder="Balance" step="0.01" required>
+        <input type="number" name="interestRate" placeholder="Interest Rate (%)" step="0.01" required>
+        <input type="number" name="minimumPayment" placeholder="Minimum Payment" step="0.01" required>
+        <!-- Removed the input for due date -->
+        <button type="submit">Add Debt</button>
+    </form>
+    <table>
+      <thead>
+        <tr>
+          <th>Creditor</th>
+          <th>Balance</th>
+          <th>Interest Rate</th>
+          <th>Minimum Monthly Payment</th>
+          <th>Action</th> <!-- Updated for Delete button -->
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dynamically added rows will appear here -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Additional sections can go here, such as Custom Payment Plan, Progress Tracker, etc. -->
+</div>
+
+<script src="debtvalgpt.js"></script>
+</body>
+</html>
