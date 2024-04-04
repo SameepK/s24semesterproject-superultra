@@ -6,12 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="quick_menu.css">
+    <link rel="stylesheet" href="menu_toggle.css">
     <style>
         .content {
             display: flex;
+            width: 50%;
             grid-template-columns: 1fr 1fr; /* Two columns */
-            gap: 150px; /* Gap between cells */
-            margin-top: 60px; /* Adjust margin-top to account for header */
+            gap: 0%; /* Gap between cells */
+            margin-top: 5%; /* Adjust margin-top to account for header */
+            column-gap: 40%;
+            column-width: 40%;
         }
 
         .column {
@@ -23,58 +28,26 @@
 
         .cell {
             background-color: #f0f0f0; /* Cell background color */
-            padding: 10px;
-            border-radius: 8px;
-            margin: 10px;
+            padding: 4%;
+            border-radius: 2%;
+            margin: 8%;
             flex-direction: row;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for cell */
         }
 
         .budTotal {
-            width: 350px;
-            height: 100px;
+            width: 200%;
+            height: 20%;
         }
 
         .budItem {
-            width: 300px;
-            height: 100px;
+            width: 180%;
+            height: 20%;
         }
 
         .rightCell {
-            width: 350px;
-            height: 100px;
-        }
-
-        .menu-toggle {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            cursor: pointer;
-        }
-
-        .bar {
-            width: 100%;
-            height: 8px;
-            background-color: #333;
-            margin: 4px 1%;
-            transition: background-color 0.3s;
-        }
-
-        .menu-toggle.active .bar:nth-child(1) {
-            transform: translateY(15px) rotate(45deg);
-        }
-
-        .menu-toggle.active .bar:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-toggle.active .bar:nth-child(3) {
-            transform: translateY(-15px) rotate(-45deg);
+            width: 200%;
+            height: 20%;
         }
 
         header {
@@ -83,7 +56,7 @@
             left: 0;
             width: 100%;
             /*background-color: #333; /* Adjust background color as needed */
-            padding: 15px 0; /* Adjust padding as needed */
+            padding: 3% 0; /* Adjust padding as needed */
             text-align: center; /* Align text in the center horizontally */
             color: #333; /* Text color */
         }
@@ -99,6 +72,28 @@
         <div class="bar"></div>
         <div class="bar"></div>
     </div>
+    <!--<div class="quick-menu" id="quickMenu" include="./quick_menu.html"></div>-->
+    <!--<script src="inject.js"></script>-->
+    <div class="quick-menu" id="quickMenu">
+        <div class="user-info">
+            <img src="user-icon.jpg" alt="Profile Picture">
+            <span class="username" id="username">username</span>
+          </div>
+          <ul class="menu-options">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="#">Account</a></li>
+            <li><a href="financialGoal.html">Financial Goal</a></li>
+            <li><a href="#">Credit Score</a></li>
+            <li><a href="CostomizeCategory.html">Create New Category</a></li>
+            <li><a href="#">Standard Investments</a></li>
+            <li><a href="#">Bond Investments</a></li>
+            <li><a href="#">Combined Expenses</a></li>
+            <li><a href="#">Education</a></li>
+            <li><a href="setting.html">Settings</a></li>
+          </ul>
+    </div>
+    <script src="quick_menu.js"></script>
+    
     <div class="content">
         <div class="column">
             <div class="cell budTotal" id="budTotal">
@@ -119,21 +114,65 @@
             </div>
         </div>
         <div class="column">
-            <div class="cell rightCell">
+            <div class="cell rightCell" onclick="redirectToDetailsPage('Main Account', 12345.67, 'User Name', '1234567890')">
                 <h2>Main Account</h2>
                 <p>12345.67</p>
             </div>
-            <div class="cell rightCell">
+            <div class="cell rightCell" onclick="redirectToDetailsPage('Second Account', 12345.67, 'User Name', '1234567890')">
                 <h2>Second Account</h2>
                 <p>12345.67</p>
             </div>
-            <div class="cell rightCell">
+            <div class="cell rightCell" onclick="redirectToDebtPage()">
                 <h2>Debt Account</h2>
                 <p>-12345.67</p>
             </div>
+            
         </div>
     </div>
 <!--So far added just the burger menu. Will need to throw in the actual main page items too-->
     <script src="home.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    fetchCategories();
+});
+function redirectToDetailsPage(accountName, amount, userName, accountNumber) {
+    const queryParams = new URLSearchParams({
+        accountName,
+        amount,
+        userName,
+        accountNumber
+    }).toString();
+
+    window.location.href = `account_details.html?${queryParams}`;
+}
+
+function redirectToDebtPage() {
+    window.location.href = `debtvalgpt.html`;
+}
+
+
+function fetchCategories() {
+    fetch('getCategory.php')
+        .then(response => response.json())
+        .then(data => {
+            if(data.success && data.categories) {
+                updateCategoryElements(data.categories);
+            } else {
+                console.error('Failed to fetch categories:', data.message);
+            }
+        })
+        .catch(error => console.error('Error fetching categories:', error));
+}
+
+function updateCategoryElements(categories) {
+    categories.forEach((category, index) => {
+        // Assuming there are exactly 3 budItem elements and their ids are bud1, bud2, and bud3
+        const budElement = document.getElementById(`bud${index + 1}`);
+        if(budElement) {
+            budElement.innerHTML = `<h2>${category.Name}</h2><p>${category.CurrentBudget}/${category.TotalBudget}</p>`;
+        }
+    });
+}
+    </script>
 </body>
 </html>
