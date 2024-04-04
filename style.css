@@ -263,3 +263,13 @@ button[type="button"] {
     background-repeat: no-repeat; 
     background-size: cover;       
 }
+
+
+#gauge {
+    width: 250px; /* Adjust based on your preference */
+    height: 250px;
+    margin: 20px auto; /* Center the gauge */
+}
+#scoreInputContainer {
+    margin-top: 20px;
+}
