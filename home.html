@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="quick_menu.css">
     <link rel="stylesheet" href="menu_toggle.css">
+    <link rel="stylesheet" href="quick_menu.css">
+    <link rel="stylesheet" href="menu_toggle.css">
     <style>
         .content {
             display: flex;
@@ -82,17 +84,18 @@
           <ul class="menu-options">
             <li><a href="home.html">Home</a></li>
             <li><a href="#">Account</a></li>
-            <li><a href="#">Financial Goal</a></li>
+            <li><a href="financialGoal.html">Financial Goal</a></li>
             <li><a href="#">Credit Score</a></li>
-            <li><a href="#">Create New Category</a></li>
+            <li><a href="CostomizeCategory.html">Create New Category</a></li>
             <li><a href="#">Standard Investments</a></li>
             <li><a href="#">Bond Investments</a></li>
             <li><a href="#">Combined Expenses</a></li>
             <li><a href="#">Education</a></li>
-            <li><a href="#">Settings</a></li>
+            <li><a href="setting.html">Settings</a></li>
           </ul>
     </div>
     <script src="quick_menu.js"></script>
+    
     <div class="content">
         <div class="column">
             <div class="cell budTotal" id="budTotal">
@@ -113,21 +116,65 @@
             </div>
         </div>
         <div class="column">
-            <div class="cell rightCell">
+            <div class="cell rightCell" onclick="redirectToDetailsPage('Main Account', 12345.67, 'User Name', '1234567890')">
                 <h2>Main Account</h2>
                 <p>12345.67</p>
             </div>
-            <div class="cell rightCell">
+            <div class="cell rightCell" onclick="redirectToDetailsPage('Second Account', 12345.67, 'User Name', '1234567890')">
                 <h2>Second Account</h2>
                 <p>12345.67</p>
             </div>
-            <div class="cell rightCell">
+            <div class="cell rightCell" onclick="redirectToDebtPage()">
                 <h2>Debt Account</h2>
                 <p>-12345.67</p>
             </div>
+            
         </div>
     </div>
 <!--So far added just the burger menu. Will need to throw in the actual main page items too-->
     <script src="home.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    fetchCategories();
+});
+function redirectToDetailsPage(accountName, amount, userName, accountNumber) {
+    const queryParams = new URLSearchParams({
+        accountName,
+        amount,
+        userName,
+        accountNumber
+    }).toString();
+
+    window.location.href = `account_details.html?${queryParams}`;
+}
+
+function redirectToDebtPage() {
+    window.location.href = `debtvalgpt.html`;
+}
+
+
+function fetchCategories() {
+    fetch('getCategory.php')
+        .then(response => response.json())
+        .then(data => {
+            if(data.success && data.categories) {
+                updateCategoryElements(data.categories);
+            } else {
+                console.error('Failed to fetch categories:', data.message);
+            }
+        })
+        .catch(error => console.error('Error fetching categories:', error));
+}
+
+function updateCategoryElements(categories) {
+    categories.forEach((category, index) => {
+        // Assuming there are exactly 3 budItem elements and their ids are bud1, bud2, and bud3
+        const budElement = document.getElementById(`bud${index + 1}`);
+        if(budElement) {
+            budElement.innerHTML = `<h2>${category.Name}</h2><p>${category.CurrentBudget}/${category.TotalBudget}</p>`;
+        }
+    });
+}
+    </script>
 </body>
 </html>
