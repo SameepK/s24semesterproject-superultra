@@ -5,10 +5,265 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="quick_menu.css">
-    <link rel="stylesheet" href="menu_toggle.css">
+    <link rel="stylesheet" href="menu_toggle.css"> -->
     <style>
+        /* css for style.css */
+        /* Hamburger Menu Icon */
+.hamburger-menu {
+    cursor: pointer;
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 70px;
+    height: 50px;
+}
+
+.hamburger-menu .bar {
+    height: 7px;
+    width: 100%;
+    background-color: black;
+    border-radius: 10px;
+}
+
+/* Slide-in Menu Container */
+.menu-container {
+    position: fixed;
+    top: 0;
+    right: -250px; /* Start offscreen */
+    width: 250px; /* Width of the menu */
+    height: 100%;
+    background: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f0f0; 
+    background-image: url("background"); 
+    background-repeat: no-repeat; 
+    background-size: cover;       
+}
+
+.login-container {
+    background-color: white;
+    padding: 30px 80px;
+    border-radius: 50px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: lightgray;
+    color: black;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    margin-top: 10px; /* Adjust as needed */
+}
+html, body, #securityTitle {
+    margin: 0;
+    padding: 0;
+}
+#securityTitle {
+    position:absolute;
+    top: 5%;
+    left: 0;
+    width: 100%;
+    background: none; /* or any background color you want */
+    text-align: center; /* if you want to center the text */
+}
+
+#loginB {
+    background-color: rgb(131, 88, 87); /* Updated color */
+    color: white; /* Changed to white for better contrast */
+    padding: 12px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    margin-top: 10px;
+    font-size: 16px; /* Adjust the font size as necessary */
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Optional: adds a shadow for depth */
+    transition: all 0.3s; /* Smooth transition for hover effects */
+    /* Additional styles if needed */
+}
+
+
+
+button:hover {
+    background-color: #45a049;
+}
+
+.actions-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.actions-container p {
+    margin: 0; /* Removes default margin */
+    display: inline-flex;
+    align-items: center;
+}
+
+button[type="button"] {
+    margin-left: 5px; /* Space between text and button */
+    padding: 6px 12px; /* Smaller padding for a more compact look */
+    font-size: 14px; /* Adjusted font size for button */
+}
+
+#loginBb {
+    display: block; /* Block display to fill the container */
+    width: 150px; /* Adjust width as needed */
+    height: 100px; /* Adjust height as needed */
+    background-color: #f2f2f2; /* Light grey background, change as needed */
+    color: black; /* Text color */
+    border: none; /* No border */
+    border-radius: 30px; /* Rounded corners */
+    margin: auto; /* Center the button horizontally */
+    padding: 0; /* No padding */
+    overflow: hidden; /* Prevents content from spilling outside the border-radius */
+    position: relative; /* Allows absolute positioning inside the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Optional: adds a shadow for depth */
+    transition: all 0.3s; /* Smooth transition for hover effects */
+}
+
+#loginBb:hover {
+    box-shadow: 0px 6px 12px rgba(0, 0, 0,0.5); /* Optional: changes the shadow on hover */
+    transform: translateY(-2px); /* Optional: slight lift effect on hover */
+}
+
+#loginB:hover {
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.7); /* Optional: changes the shadow on hover */
+    transform: translateY(-5px); /* Optional: slight lift effect on hover */
+}
+
+#loginBb:active {
+    transform: translateY(1px); /* Optional: presses down effect on click */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Optional: less shadow on click */
+}
+
+#loginBb h1 {
+    margin: 0; /* Remove default margin */
+    position: absolute; /* Absolute position within the button */
+    top: 50%; /* Align top at 50% of button height */
+    left: 50%; /* Align left at 50% of button width */
+    transform: translate(-50%, -50%); /* Center the title */
+    font-size: 24px; /* Adjust font size as needed */
+    font-weight: normal; /* Adjust font weight as needed */
+    color: inherit; /* Inherit text color from the button */
+}
+
+
+/* css for quick_menu.css */
+.quick-menu {
+    position: fixed;
+    top: 0; /* Adjust the top position as needed to avoid overlapping with header */
+    right: 0;
+    width: 250px;
+    height: 400px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    display: none;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.user-info img {
+    /*align-self: center;*/
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.username {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.quick-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.quick-menu li {
+    margin-bottom: 10px;
+}
+
+.quick-menu a {
+    text-decoration: none;
+    color: #333;
+}
+
+/* css for men_toggles.css */
+.menu-toggle {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.bar {
+    width: 100%;
+    height: 8px;
+    background-color: #333;
+    margin: 4px 1%;
+    transition: background-color 0.3s;
+}
+
+.menu-toggle.active .bar:nth-child(1) {
+    transform: translateY(15px) rotate(45deg);
+}
+
+.menu-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active .bar:nth-child(3) {
+    transform: translateY(-15px) rotate(-45deg);
+}
+
+/* css for this html page */
         .content {
             display: flex;
             width: 50%;
@@ -61,6 +316,51 @@
             color: #333; /* Text color */
         }
 
+        @media screen and (max-width: 768px) {
+        .hamburger-menu {
+            top: 20px; /* Adjusted for consistency */
+            right: 20px;
+            width: 40px; /* Optimized size for mobile */
+            height: 30px;
+        }
+
+        .hamburger-menu .bar {
+            height: 3px; /* Thinner bars for a refined look */
+        }
+
+        .menu-container {
+            width: 100%; /* Full width for easier navigation on mobile */
+            right: 0; /* Adjust position to ensure visibility */
+        }
+
+        .content {
+            flex-direction: column; /* Stack columns vertically on small screens */
+            width: 100%; /* Use full screen width */
+            margin-top: 120px; /* Increase top margin to accommodate fixed header */
+        }
+
+        .column, .cell, .budTotal, .budItem, .rightCell {
+            width: 90%; /* Adjust width to better fit mobile screens */
+            margin: 10px auto; /* Center elements horizontally with automatic margins */
+            padding: 15px; /* Adjust padding for readability */
+        }
+
+        header {
+            padding: 15px 0; /* Adjust header padding on smaller screens */
+        }
+
+        /* Adjust input fields and buttons for easier interaction on mobile */
+        input[type="text"], input[type="password"], button {
+            padding: 15px; /* Increase padding for larger touch targets */
+        }
+
+        #loginB, #loginBb {
+            width: auto; /* Allow buttons to adjust width based on content */
+            margin: 10px auto; /* Center buttons horizontally */
+            padding: 12px 20px; /* Adjust button padding */
+        }
+    }
+
     </style>
 </head>
 <body>
@@ -82,52 +382,102 @@
           <ul class="menu-options">
             <li><a href="home.html">Home</a></li>
             <li><a href="#">Account</a></li>
-            <li><a href="#">Financial Goal</a></li>
+            <li><a href="financialGoal.html">Financial Goal</a></li>
             <li><a href="#">Credit Score</a></li>
-            <li><a href="#">Create New Category</a></li>
+            <li><a href="CostomizeCategory.html">Create New Category</a></li>
             <li><a href="#">Standard Investments</a></li>
             <li><a href="#">Bond Investments</a></li>
             <li><a href="#">Combined Expenses</a></li>
             <li><a href="#">Education</a></li>
-            <li><a href="#">Settings</a></li>
+            <li><a href="setting.html">Settings</a></li>
           </ul>
     </div>
     <script src="quick_menu.js"></script>
+    
     <div class="content">
         <div class="column">
             <div class="cell budTotal" id="budTotal">
                 <h2>Total Budget</h2>
                 <p>000.00/000.00</p>
             </div>
-            <div class="cell budItem" id="bud1">
+            <div class="cell budItem" id="bud1" onclick="editCategory('bud1')">
                 <h2>Category 1</h2>
                 <p>000.00/000.00</p>
             </div>
-            <div class="cell budItem" id="bud2">
-                <h2>Category 1</h2>
+            <div class="cell budItem" id="bud2" onclick="editCategory('bud2')">
+                <h2>Category 2</h2>
                 <p>000.00/000.00</p>
             </div>
-            <div class="cell budItem" id="bud2">
-                <h2>Category 1</h2>
+            <div class="cell budItem" id="bud3" onclick="editCategory('bud3')">
+                <h2>Category 3</h2>
                 <p>000.00/000.00</p>
             </div>
         </div>
+
         <div class="column">
-            <div class="cell rightCell">
+            <div class="cell rightCell" onclick="redirectToDetailsPage('Main Account', 12345.67, 'User Name', '1234567890')">
                 <h2>Main Account</h2>
                 <p>12345.67</p>
             </div>
-            <div class="cell rightCell">
+            <div class="cell rightCell" onclick="redirectToDetailsPage('Second Account', 12345.67, 'User Name', '1234567890')">
                 <h2>Second Account</h2>
                 <p>12345.67</p>
             </div>
-            <div class="cell rightCell">
+            <div class="cell rightCell" onclick="redirectToDebtPage()">
                 <h2>Debt Account</h2>
                 <p>-12345.67</p>
             </div>
+            
         </div>
     </div>
 <!--So far added just the burger menu. Will need to throw in the actual main page items too-->
     <script src="home.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    fetchCategories();
+});
+function redirectToDetailsPage(accountName, amount, userName, accountNumber) {
+    const queryParams = new URLSearchParams({
+        accountName,
+        amount,
+        userName,
+        accountNumber
+    }).toString();
+
+    window.location.href = `account_details.html?${queryParams}`;
+}
+
+function redirectToDebtPage() {
+    window.location.href = `debtvalgpt.html`;
+}
+
+
+function fetchCategories() {
+            fetch('getCategory.php')
+                .then(response => response.json())
+                .then(data => {
+                    if(data.success && data.categories) {
+                        updateCategoryElements(data.categories);
+                    } else {
+                        console.error('Failed to fetch categories:', data.message);
+                    }
+                })
+                .catch(error => console.error('Error fetching categories:', error));
+        }
+
+        function updateCategoryElements(categories) {
+            categories.forEach((category, index) => {
+                const budElement = document.getElementById(`bud${index + 1}`);
+                if(budElement) {
+                    budElement.innerHTML = `<h2>${category.Name}</h2><p>${category.CurrentBudget}/${category.TotalBudget}</p>`;
+                    budElement.setAttribute("onclick", `editCategory('${category.Name}')`);
+                }
+            });
+        }
+
+        function editCategory(categoryName) {
+            window.location.href = `CostomizeCategory.html?category=${encodeURIComponent(categoryName)}`;
+        }
+    </script>
 </body>
 </html>
