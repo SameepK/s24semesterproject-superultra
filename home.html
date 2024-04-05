@@ -7,7 +7,13 @@
     <title>Main Page</title>
     <!-- <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="quick_menu.css">
+
     <link rel="stylesheet" href="menu_toggle.css"> -->
+
+    <link rel="stylesheet" href="menu_toggle.css">
+    <link rel="stylesheet" href="quick_menu.css">
+    <link rel="stylesheet" href="menu_toggle.css">
+
     <style>
         /* css for style.css */
         /* Hamburger Menu Icon */
@@ -453,6 +459,7 @@ function redirectToDebtPage() {
 
 
 function fetchCategories() {
+
             fetch('getCategory.php')
                 .then(response => response.json())
                 .then(data => {
@@ -478,6 +485,28 @@ function fetchCategories() {
         function editCategory(categoryName) {
             window.location.href = `CostomizeCategory.html?category=${encodeURIComponent(categoryName)}`;
         }
+
+    fetch('getCategory.php')
+        .then(response => response.json())
+        .then(data => {
+            if(data.success && data.categories) {
+                updateCategoryElements(data.categories);
+            } else {
+                console.error('Failed to fetch categories:', data.message);
+            }
+        })
+        .catch(error => console.error('Error fetching categories:', error));
+}
+
+function updateCategoryElements(categories) {
+    categories.forEach((category, index) => {
+        // Assuming there are exactly 3 budItem elements and their ids are bud1, bud2, and bud3
+        const budElement = document.getElementById(`bud${index + 1}`);
+        if(budElement) {
+            budElement.innerHTML = `<h2>${category.Name}</h2><p>${category.CurrentBudget}/${category.TotalBudget}</p>`;
+        }
+    });
+}
     </script>
 </body>
 </html>
