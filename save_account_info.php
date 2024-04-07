@@ -21,14 +21,25 @@ if ($conn->connect_error) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get JSON input and decode it
     $input = json_decode(file_get_contents('php://input'), true);
-    $name = $input['name']; // Corrected array key to match JSON keys sent from JS (case-sensitive)
-    $account_number = $input['accountNumber']; // Corrected to match JSON keys
-    $username = $input['username']; // Corrected to match JSON keys
-    $password = $input['password']; // Corrected to match JSON keys
-    $email = $input['email']; // Corrected to match JSON keys
+    $name = $input['name'];
+    $account_number = $input['accountNumber'];
+    $username = $input['username'];
+    $password = $input['password'];
+    $email = $input['email'];
+    
+    // Check if the username is already taken
+    $stmt = $conn->prepare("SELECT * FROM Account_info WHERE Username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        // Username is already taken
+        echo json_encode(['success' => false, 'message' => 'Username is already taken']);
+        exit;
+    }
 
     // Prepare the INSERT statement
-    // Corrected column name from `Accoun_number` to `Account_number`
     $sql = "INSERT INTO `Account_info` (`Name`, `Accoun_number`, `Username`, `Password`, `Email`) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     if ($stmt === false) {
@@ -46,27 +57,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Close statement
     $stmt->close();
 
-    // Return the saved account information
-    echo json_encode(['success' => true, 'message' => 'Account information saved successfully', 'account_info' => $input]);
-    
-} elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    // Handle GET request to fetch account information
-    $sql_fetch = "SELECT * FROM `Account_info`";
-    $result = $conn->query($sql_fetch);
-    $accounts = [];
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $accounts[] = $row;
-        }
-    }
+    // Get the ID of the saved record
+    $userId = $conn->insert_id;
 
-    // Return the fetched account information
-    echo json_encode(['success' => true, 'accounts' => $accounts]);
+    // Close connection
+    $conn->close();
+
+    // Return success message and user ID
+    echo json_encode(['success' => true, 'message' => 'Account information saved successfully', 'userId' => $userId]);
 } else {
     // Handle other request methods
     echo json_encode(['success' => false, 'message' => 'Invalid request method']);
 }
-
-// Close connection
-$conn->close();
 ?>
