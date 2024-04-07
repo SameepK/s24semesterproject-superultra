@@ -18,7 +18,6 @@ function fetchUserInfo(userId) {
     .then(data => {
         if (data.success) {
             const userDetails = data.userDetails;
-
             // Save user details to localStorage
             localStorage.setItem('userDetails', JSON.stringify(userDetails));
 
@@ -57,3 +56,4 @@ window.addEventListener('load', function() {
         displayUserInfo(userDetails);
     }
 });
+

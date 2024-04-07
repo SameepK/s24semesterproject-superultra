@@ -26,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $input['username'];
     $password = $input['password'];
     $email = $input['email'];
-    
     // Check if the username is already taken
     $stmt = $conn->prepare("SELECT * FROM Account_info WHERE Username = ?");
     $stmt->bind_param("s", $username);

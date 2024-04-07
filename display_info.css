@@ -12,7 +12,6 @@ body {
 } 
 
 
-
 h1 {
     text-align: center;
     color: #000000;
@@ -21,8 +20,6 @@ h1 {
     left: 50%;
     transform: translateX(-50%);
 }
-
-
 .save_det{
     background-color: #f0f0f0;
     padding: 30px 70px;
@@ -58,8 +55,6 @@ h1 {
     height: 3px;
     background-color: #000;
 }
-
-/* Existing CSS styles */
 
 #saveButton {
     background-color: #000000; /* Blue background color */
