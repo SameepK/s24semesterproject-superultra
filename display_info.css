@@ -10,15 +10,7 @@ body {
     background-repeat: no-repeat; 
     background-size: cover;
 } 
-img{
-    width: 200px;
-    height: 180px;
-    border-radius: 100px;
-    object-fit: none;
-    position: relative;
-    left: -50px;
-    top: -120px
-}
+
 
 h1 {
     text-align: center;
@@ -28,7 +20,6 @@ h1 {
     left: 50%;
     transform: translateX(-50%);
 }
-
 .save_det{
     background-color: #f0f0f0;
     padding: 30px 70px;
@@ -44,9 +35,9 @@ h1 {
 }
 
 .menu {
-    position: absolute;
-    top: 30px;
-    right: 20px;
+    position: relative;
+    top: -27pc;
+    right: -80pc;
 }
 
 .hamburger-menu {
@@ -65,20 +56,39 @@ h1 {
     background-color: #000;
 }
 
-
-#backButton{
-    position: absolute;
-    top: 20px;
-    right: 90px;
-    background-color: #000000;
+#saveButton {
+    background-color: #000000; /* Blue background color */
+    color: #fff; /* White text color */
     border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
+    padding: 10px 20px;
     border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    text-decoration: none; /* Ensure buttons don't have underline */
+    display: inline-block; /* Ensure buttons appear in line */
+    position: relative;
+    top: 35pc;
+    right: 23pc
 }
+
+#saveButton {
+    background-color: #000000; /* Green background color for "Save Your Information" button */
+}
+
+.back-button {
+    position: absolute;
+    top: 31px;
+    left: 1257px;
+    padding: 15px 30px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #555;
+}
+

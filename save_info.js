@@ -17,8 +17,18 @@ document.getElementById('saveButton').addEventListener('click', function(event) 
         })
         .then(response => response.json())
         .then(data => {
-            alert(data.message); // Assuming the PHP script returns a JSON object with a message property
-            window.location.href = `display_info.html?userId=${data.userId}`;
+            if (data.success) {
+                alert(data.message); // Display success message
+                window.location.href = `display_info.html?userId=${data.userId}`;
+            } else {
+                if (data.message === 'Username is already taken') {
+                    // Display the error message without redirecting
+                    alert(data.message);
+                } else {
+                    // Other error occurred, redirect to error page or handle as needed
+                    alert('An error occurred. Please try again.');
+                }
+            }
         })
         .catch(error => {
             console.error('Error:', error);
@@ -29,36 +39,37 @@ document.getElementById('saveButton').addEventListener('click', function(event) 
     }
 });
 
+
 function saveAccountInfo() {
-    window.location.href = "home.html"; 
-    let Username = document.getElementById('usernameInput').value;
-    let Email = document.getElementById('emailInput').value;
-    let Password = document.getElementById('passwordInput').value;
-    let Account_number = document.getElementById('accountNumberInput').value;
-    let Name = document.getElementById('nameInput').value;
+    // Collect data from inputs
+    const username = document.getElementById('usernameInput').value;
+
+    // Check if username is empty
+    if (!username.trim()) {
+        alert('Please fill in the username field.');
+        return;
+    }
 
     fetch('save_account_info.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ Username: Username, Email: Email, Password: Password, Account_number: Account_number, Name: Name }) // Adjusted to match column names
+        body: JSON.stringify({ Username: username }) // Send only the username for checking
     })
     .then(response => {
         if (!response.ok) {
             throw new Error('Failed to save account information');
         }
-        console.log('Account information saved successfully');
-        // Update displayed data after saving
-        displaySavedInfo(Username, Email, Password, Account_number, Name);
+        return response.json(); // Parse response JSON
+    })
+    .then(data => {
+        if (data.success) {
+            alert(data.message); // Display success message
+            window.location.href = `display_info.html?userId=${data.userId}`;
+        } else {
+            alert(data.message); // Display error message
+        }
     })
     .catch(error => console.error('Error saving account information:', error));
-}
-
-function displaySavedInfo(Username, Email, Password, Account_number, Name) {
-    document.getElementById('usernameInput').value = Username;
-    document.getElementById('emailInput').value = Email;
-    document.getElementById('passwordInput').value = Password;
-    document.getElementById('accountNumberInput').value = Account_number;
-    document.getElementById('nameInput').value = Name;
 }
