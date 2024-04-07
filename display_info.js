@@ -18,16 +18,11 @@ function fetchUserInfo(userId) {
     .then(data => {
         if (data.success) {
             const userDetails = data.userDetails;
-            const detailsContainer = document.getElementById('detailsContainer');
+            // Save user details to localStorage
+            localStorage.setItem('userDetails', JSON.stringify(userDetails));
 
-            const userDetailsHTML = `
-                <p><strong>Name:</strong> ${userDetails.Name}</p>
-                <p><strong>Username:</strong> ${userDetails.Username}</p>
-                <p><strong>Account Number:</strong> ${userDetails.Accoun_number}</p>
-                <p><strong>Password:</strong> ${userDetails.Password}</p>
-                <p><strong>Email:</strong> ${userDetails.Email}</p>
-            `;
-            detailsContainer.innerHTML = userDetailsHTML;
+            // Display user details
+            displayUserInfo(userDetails);
         } else {
             console.error('Failed to fetch user details:', data.message);
             alert('An error occurred while fetching details.');
@@ -38,3 +33,27 @@ function fetchUserInfo(userId) {
         alert('An error occurred while fetching user details.');
     });
 }
+
+function displayUserInfo(userDetails) {
+    const detailsContainer = document.getElementById('detailsContainer');
+
+    // Create HTML for displaying user details
+    const userDetailsHTML = `
+        <p><strong>Name:</strong> ${userDetails.Name}</p>
+        <p><strong>Username:</strong> ${userDetails.Username}</p>
+        <p><strong>Account Number:</strong> ${userDetails.Accoun_number}</p>
+        <p><strong>Password:</strong> ${'*'.repeat(userDetails.Password.length)}</p>
+        <p><strong>Email:</strong> ${userDetails.Email}</p>
+    `;
+    detailsContainer.innerHTML = userDetailsHTML;
+}
+
+// Load user details from localStorage when the page loads
+window.addEventListener('load', function() {
+    const storedUserDetails = localStorage.getItem('userDetails');
+    if (storedUserDetails) {
+        const userDetails = JSON.parse(storedUserDetails);
+        displayUserInfo(userDetails);
+    }
+});
+

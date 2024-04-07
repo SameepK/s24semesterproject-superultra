@@ -26,6 +26,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $input['username'];
     $password = $input['password'];
     $email = $input['email'];
+    // Check if the username is already taken
+    $stmt = $conn->prepare("SELECT * FROM Account_info WHERE Username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        // Username is already taken
+        echo json_encode(['success' => false, 'message' => 'Username is already taken']);
+        exit;
+    }
 
     // Prepare the INSERT statement
     $sql = "INSERT INTO `Account_info` (`Name`, `Accoun_number`, `Username`, `Password`, `Email`) VALUES (?, ?, ?, ?, ?)";
