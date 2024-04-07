@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Credit Score Gauge</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.4.0/justgage.min.js"></script>
+</head>
+<body>
+
+<div id="gauge"></div>
+
+Value: <input type="number" id="creditScoreInput" min="300" max="850" value="675" />
+<button onclick="sendScoreToServer()">Submit Score</button>
+
+<script>
+    var g; // global variable for the gauge
+
+    window.onload = function() {
+        g = new JustGage({
+            id: "gauge",
+            value: 0,
+            min: 300,
+            max: 850,
+            title: "Credit Score",
+            label: "points",
+            levelColors: [
+                "#FF0000", // Poor (Red)
+                "#F9C802", // Fair (Yellow)
+                "#A9D70B", // Good (Green)
+                "#00FF00"  // Excellent (Green)
+            ],
+            counter: true,
+            humanFriendly: true
+        });
+    };
+
+    function sendScoreToServer() {
+        var score = document.getElementById('creditScoreInput').value;
+        score = Math.max(300, Math.min(850, score)); // Constrain the score
+
+        // Update gauge
+        g.refresh(score);
+
+        // Send the score to the server using fetch API
+        fetch('store_score.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `score=${score}`
+        })
+        .then(response => response.text())
+        .then(data => alert(data))
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Credit Score Gauge</title>
+    <!-- Include Raphael, which is required by JustGage -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <!-- Include JustGage library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.4.0/justgage.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="quick_menu.css">
+    <link rel="stylesheet" href="menu_toggle.css">
+    <style>
+    #gaugeContainer {
+        background-color: white; /* White background for the container */
+        padding: 20px;
+        border-radius: 10px; /* Rounded corners for the container */
+        display: inline-block; /* Center the container */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+        margin-top: 50px; /* Spacing from the top */
+    }</style>
+</head>
+<body>
+    <div class="menu-toggle" id="menuToggle">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+    <div class="quick-menu" id="quickMenu">
+        <div class="user-info">
+            <img src="user-icon.jpg" alt="Profile Picture">
+            <span class="username" id="username">username</span>
+          </div>
+          <ul class="menu-options">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="#">Account</a></li>
+            <li><a href="financialGoal.html">Financial Goal</a></li>
+            <li><a href="updatedcredit.html">Credit Score</a></li>
+            <li><a href="CostomizeCategory.html">Create New Category</a></li>
+            <li><a href="#">Standard Investments</a></li>
+            <li><a href="#">Bond Investments</a></li>
+            <li><a href="#">Combined Expenses</a></li>
+            <li><a href="#">Education</a></li>
+            <li><a href="setting.html">Settings</a></li>
+          </ul>
+    </div>
+    <script src="quick_menu.js"></script>
+    <div id="gaugeContainer">
+        <div id="gauge"></div>
+        <div id="scoreInputContainer">
+            Value: <input type="number" id="valueInput" min="300" max="850" value="675" />
+            <button onclick="updateGauge(parseInt(document.getElementById('valueInput').value))">Update Gauge</button>
+        </div>
+    </div>
+<script>
+    // Initialize the JustGage gauge when the window loads
+    window.onload = function() {
+        var g = new JustGage({
+            id: "gauge", // The id of the div placeholder where the gauge will be drawn
+            value: 0, // Initial value of the gauge
+            min: 300, // Minimum value of the gauge
+            max: 850, // Maximum value of the gauge
+            title: "Credit Score", // Title of the gauge
+            label: "", // The label below the value
+            startAnimationTime: 2000,
+            startAnimationType: ">",
+            refreshAnimationTime: 1000,
+            refreshAnimationType: "bounce",
+            levelColors: [
+                "#ff0000", // Poor (Red)
+                "#f9c802", // Fair (Yellow)
+                "#a9d70b", // Good (Green)
+                "#45d70b", // Very Good (Green)
+                "#00ff00"  // Excellent (Green)
+            ],
+            customSectors: {
+                percents: false, // Use the 'ranges' values as absolute values
+                ranges: [
+                    { color : "#ff0000", lo : 300, hi : 579 }, // Poor
+                    { color : "#f9c802", lo : 580, hi : 669 }, // Fair
+                    { color : "#f9c802", lo : 670, hi : 739 }, // Good
+                    { color : "#a9d70b", lo : 740, hi : 799 }, // Very Good
+                    { color : "#00ff00", lo : 800, hi : 850 }  // Excellent
+                ]
+            }
+        });
+
+        // Function to update the gauge based on the input value
+        window.updateGauge = function(value) {
+            if(value >= 300 && value <= 850){
+                g.refresh(value);
+            }
+        }
+    };
+</script>
+
+
+</body>
+</html>

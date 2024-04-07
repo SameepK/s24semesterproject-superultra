@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Saved Goals</title>
+    <link rel="stylesheet" href="saved_goals.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Saved Goals</h1>
+        <a href="set_goal.html">Add a New Goal</a>
+        <a href="#" onclick="history.back();" class="back-button">Back</a>
+        <ul class="menu-items">
+                <div class="menu">
+                    <div class="hamburger-menu" onclick="toggleMenu()">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+            </a></li>
+        </ul>
+    </div>
+    <div class="goalList" id= goalCont>
+        <div class="goal">
+            <h2></h2>
+            <p>Target Amount: </p>
+            <p>Target Date: </p>
+        </div>
+        <div class="goal">
+            <h2></h2>
+            <p>Target Amount: </p>
+            <p>Target Date: </p>
+        </div>
+        <!-- Add more goals as needed -->
+    </div>
+    <script src="saved_goals.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Overview</title>
+    <link rel="stylesheet" href="style.css"> <!-- Ensure this path is correct -->
+</head>
+<body>
+
+<div class="login-container" style="width: auto; padding: 40px;">
+    <h2>Account Overview</h2>
+    <select id="bankSelector">
+        <option value="">Select a Bank</option>
+        <option value="Bank A">Bank A</option>
+        <option value="Bank B">Bank B</option>
+    </select>
+    
+    <!-- Initially hidden section -->
+    <div id="accountInfo" style="display: none;">
+        <div class="account-details">
+            <p><strong>Account Number:</strong> 123456789</p>
+            <p><strong>Account Holder:</strong> <span id="accountHolder">Loading...</span></p>
+            <p><strong>Account Balance:</strong> <span id="balance">$10,000</span></p>
+        </div>
+        <div class="transaction-history">
+            <h3>Recent Transactions</h3>
+            <ul>
+                <li>Deposit: $500 on 2024-03-15</li>
+                <li>Withdrawal: $200 on 2024-03-14</li>
+                <li>Payment: $150 on 2024-03-13</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="banking.js">
+    
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('fetch-username.php')
+        .then(response => response.text())
+        .then(username => {
+            document.getElementById('accountHolder').textContent = username;
+        })
+        .catch(error => console.error('Error fetching username:', error));
+});
+
+</script>
+</body>
+</html>
+

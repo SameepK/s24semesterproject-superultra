@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customize Category</title>
+    <link rel="stylesheet" href="stylesAbby.css">
+    <style>
+        body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.input-group {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 16px;
+}
+
+.input-group input[type="text"], .input-group input[type="file"] {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+#save-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s;
+    align-self: center;
+}
+
+#save-btn:hover {
+    background-color: #1d9a5f;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .input-group label {
+        font-size: 14px;
+    }
+
+    #save-btn {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    body {
+        justify-content: space-around;
+    }
+
+    .container {
+        margin: 20px;
+        max-width: 600px; /* Slightly wider on larger screens */
+    }
+}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="input-group">
+            <label for="name">Category Name:</label>
+            <input type="text" id="name" placeholder="Enter Category Name Here">
+        </div>
+        <div class="input-group">
+            <label for="current-budget">Current Budget:</label>
+            <input type="text" id="current-budget" placeholder="Enter the Current Budget here">
+        </div>
+        <div class="input-group">
+            <label for="total-budget">Total Budget:</label>
+            <input type="text" id="total-budget" placeholder="Enter the Total Budget here">
+        </div>
+        <button id="save-btn">Save</button>
+    </div>
+    
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoryName = urlParams.get('category');
+            if (categoryName) {
+                fetchCategoryData(decodeURIComponent(categoryName));
+            }
+        });
+    
+        function fetchCategoryData(categoryName) {
+            fetch(`getCategoryDetails.php?name=${encodeURIComponent(categoryName)}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('name').value = data.name;
+                    document.getElementById('current-budget').value = data.currentBudget;
+                    document.getElementById('total-budget').value = data.totalBudget;
+                })
+                .catch(error => console.error('Error fetching category data:', error));
+        }
+    
+        document.getElementById('save-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const currentBudget = document.getElementById('current-budget').value;
+            const totalBudget = document.getElementById('total-budget').value;
+    
+            if (name.trim() !== '' && currentBudget.trim() !== '' && totalBudget.trim() !== '') {
+                fetch('updateCategory.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, currentBudget, totalBudget })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    window.location.href = "home.html";
+                })
+                .catch(error => console.error('Error:', error));
+            } else {
+                alert('Please enter all the fields.');
+            }
+        });
+        </script>
+    </body>
+    </html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Score Chart</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        #scoreInputContainer {
+            background-color: white; /* Set the background to white */
+            padding: 10px; /* Add some padding */
+            border-radius: 5px; /* Optionally round the corners */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Optional shadow for a subtle depth effect */
+            margin-bottom: 20px; /* Add some margin to the bottom */
+        }
+        /* Adjust canvas size for a better fit */
+        #creditScoreChart {
+            width: 100% !important;
+            max-width: 400px;
+            height: auto !important;
+            background-color: white; /* White background for the canvas as well */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Consistent shadow with the input */
+            margin-bottom: 20px; /* Space below the canvas */
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Enter Your Credit Score</h2>
+    <div id="scoreInputContainer"> <!-- Added div container for the score input -->
+        <form id="creditScoreForm" class="form-inline">
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="creditScore" class="sr-only">Credit Score</label>
+                <input type="number" class="form-control" id="creditScore" name="creditScore" placeholder="Credit Score" required>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        </form>
+    </div>
+    <div id="result" class="mt-3"></div>
+    <canvas id="creditScoreChart"></canvas>
+</div>
+<script src="credit.js"></script> <!-- Ensure you have your script.js file in the same directory -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Goals</title>
+    <link rel="stylesheet" href="set_goal.css">
+</head>
+<body>
+    <h1>Set Goals</h1>
+    <a href="#" onclick="history.back();" class="back-button">Back</a>
+    <a href="home.html">
+        <div class="menu">
+            <div class="hamburger-menu" onclick="toggleMenu()">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </div>
+     </a>
+    <div class="set_goals">
+        <form id="add-goal-form">
+            <input type="text" id="goalNameInput" placeholder="GoalName" required>
+            <input type="number" id="targetAmountInput" placeholder="TargetAmount" required>
+            <input type="date" id="targetDateInput" required>
+            <button type="submit" id="saveGoalButton">Save Goal</button>
+        </form>
+    </div>
+    <script src="set_goal.js"></script>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
