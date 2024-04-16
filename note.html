@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Enhanced Note Taker</title>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 20px;
+        background-color: #f0f2f5;
+        color: #333;
+    }
+    #noteForm {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+    textarea {
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        resize: none; /* Disable resizing */
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    .note {
+        padding: 15px;
+        margin-bottom: 10px;
+        background-color: #fff;
+        border-left: 5px solid #007bff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    #notes {
+        margin-top: 20px;
+    }
+    .notehold {
+        background-color: white; /* White background for the container */
+        padding: 20px;
+        border-radius: 10px; /* Rounded corners for the container */
+        display: inline-block; /* Center the container */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+        margin-top: 50px; /* Spacing from the top */
+    }
+</style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class = notehold>
+<h1>Enhanced Note Taker</h1>
+<div id="noteForm">
+    <textarea id="noteInput" rows="4" cols="50" placeholder="Enter your note here..."></textarea>
+    <button onclick="addNote()">Add Note</button>
+</div>
+<div id="notes"></div>
+    </div>
+
+<script>
+    function addNote() {
+        var input = document.getElementById('noteInput');
+        var note = input.value;
+        if (note.trim() === '') {
+            alert('Please write something in the note!');
+            return;
+        }
+        var notesContainer = document.getElementById('notes');
+        var noteElement = document.createElement('div');
+        noteElement.classList.add('note');
+        noteElement.textContent = note;
+        notesContainer.appendChild(noteElement);
+        input.value = ''; // Clear input after adding
+    }
+</script>
+</body>
+</html>
