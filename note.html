@@ -65,21 +65,73 @@
 <div id="notes"></div>
     </div>
 
-<script>
-    function addNote() {
-        var input = document.getElementById('noteInput');
-        var note = input.value;
-        if (note.trim() === '') {
-            alert('Please write something in the note!');
-            return;
-        }
-        var notesContainer = document.getElementById('notes');
-        var noteElement = document.createElement('div');
-        noteElement.classList.add('note');
-        noteElement.textContent = note;
-        notesContainer.appendChild(noteElement);
-        input.value = ''; // Clear input after adding
-    }
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchNotes();
+        
+            function addNote() {
+                var input = document.getElementById('noteInput');
+                var note = input.value;
+                if (note.trim() === '') {
+                    alert('Please write something in the note!');
+                    return;
+                }
+        
+                fetch('backend.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'content=' + encodeURIComponent(note)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    fetchNotes();  // Refresh notes after adding
+                });
+        
+                input.value = '';
+            }
+        
+            function fetchNotes() {
+                fetch('backend.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        var notesContainer = document.getElementById('notes');
+                        notesContainer.innerHTML = '';  // Clear existing notes
+                        data.forEach(function(note) {
+                            var noteElement = document.createElement('div');
+                            noteElement.classList.add('note');
+                            noteElement.textContent = note.content;
+        
+                            // Adding remove button to each note
+                            var removeBtn = document.createElement('button');
+                            removeBtn.textContent = 'Remove';
+                            removeBtn.onclick = function() { removeNote(note.id); };
+                            noteElement.appendChild(removeBtn);
+        
+                            notesContainer.appendChild(noteElement);
+                        });
+                    });
+            }
+        
+            function removeNote(id) {
+                fetch('backend.php', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'id=' + id
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    fetchNotes();  // Refresh notes after deletion
+                });
+            }
+        
+            window.addNote = addNote;  // Expose function to global context for the button
+        });
+        </script>
 </body>
 </html>
