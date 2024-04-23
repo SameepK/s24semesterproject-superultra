@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Enhanced Note Taker</title>
 <style>
+    
     body {
         font-family: 'Arial', sans-serif;
         margin: 20px;
@@ -54,8 +55,36 @@
     }
 </style>
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="menu_toggle.css">
+    <link rel="stylesheet" href="quick_menu.css">
 </head>
 <body>
+    <div class="menu-toggle" id="menuToggle">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+    <!--<div class="quick-menu" id="quickMenu" include="./quick_menu.html"></div>-->
+    <!--<script src="inject.js"></script>-->
+    <div class="quick-menu" id="quickMenu">
+        <div class="user-info">
+            <img src="user-icon.jpg" alt="Profile Picture">
+            <span class="username" id="username">username</span>
+          </div>
+          <ul class="menu-options">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="#">Account</a></li>
+            <li><a href="financialGoal.html">Financial Goal</a></li>
+            <li><a href="updatedcredit.html">Credit Score</a></li>
+            <li><a href="CostomizeCategory.html">Create New Category</a></li>
+            <li><a href="#">Standard Investments</a></li>
+            <li><a href="#">Bond Investments</a></li>
+            <li><a href="#">Combined Expenses</a></li>
+            <li><a href="#">Education</a></li>
+            <li><a href="setting.html">Settings</a></li>
+          </ul>
+    </div>
+    <script src="quick_menu.js"></script>
     <div class = notehold>
 <h1>Enhanced Note Taker</h1>
 <div id="noteForm">
@@ -68,6 +97,25 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             fetchNotes();
+            function getCookie(name) {
+            let nameEQ = name + "=";
+            let ca = document.cookie.split(';');
+            for(let i=0;i < ca.length;i++) {
+                let c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        }
+
+        window.onload = function() {
+            const username = getCookie("usercookie");
+            if (username) {
+                document.getElementById("greeting").textContent = "Welcome back, " + username + "!";
+            } else {
+                window.location.href = "index.html"; // Redirect to login if no cookie
+            }
+        };
         
             function addNote() {
                 var input = document.getElementById('noteInput');
@@ -76,8 +124,13 @@
                     alert('Please write something in the note!');
                     return;
                 }
-        
-                fetch('backend.php', {
+                var notesContainer = document.getElementById('notes'); // Getting the container to append to
+                var noteElement = document.createElement('div');
+                noteElement.classList.add('note');
+                noteElement.textContent = note;
+                notesContainer.appendChild(noteElement);
+                input.value = ''; // Clear input after adding
+                fetch('notes.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -94,7 +147,7 @@
             }
         
             function fetchNotes() {
-                fetch('backend.php')
+                fetch('notes.php')
                     .then(response => response.json())
                     .then(data => {
                         var notesContainer = document.getElementById('notes');
@@ -116,7 +169,7 @@
             }
         
             function removeNote(id) {
-                fetch('backend.php', {
+                fetch('notes.php', {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',

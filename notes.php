@@ -9,10 +9,10 @@ CREATE TABLE notes (
 
 
 <?php
-$host = 'localhost';  // Host name
-$dbname = 'note_database';  // Database name
-$username = 'your_username';  // Database username
-$password = 'your_password';  // Database password
+$host = 'oceanus.cse.buffalo.edu';  // Host name
+$dbname = 'cse442_2024_spring_team_aa_db';  // Database name
+$username = 'ddparris';  // Database username
+$password = '50345153';  // Database password
 
 // Create connection
 $conn = new mysqli($host, $username, $password, $dbname);
@@ -21,6 +21,7 @@ $conn = new mysqli($host, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
 
 // Handle requests
 $method = $_SERVER['REQUEST_METHOD'];

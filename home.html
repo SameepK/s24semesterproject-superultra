@@ -1,11 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-3974203-1', 'auto'); ga('send', 'pageview');
+    function getCookie(name) {
+            let nameEQ = name + "=";
+            let ca = document.cookie.split(';');
+            for(let i=0;i < ca.length;i++) {
+                let c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        }
+
+        window.onload = function() {
+            const username = getCookie("usercookie");
+            if (username) {
+                document.getElementById("greeting").textContent = "Welcome back, " + username + "!";
+            } else {
+                window.location.href = "index.html"; // Redirect to login if no cookie
+            }
+        };
+    </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
-    <!-- <!-- <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="quick_menu.css">
 
     <link rel="stylesheet" href="menu_toggle.css"> -->
@@ -15,6 +37,22 @@
     <link rel="stylesheet" href="menu_toggle.css">
 
     <style>
+header {
+    display: flex; /* Enables flexbox layout within the header */
+    justify-content: center; /* Centers the items horizontally */
+    align-items: center; /* Aligns items vertically */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Full width */
+    padding: 10px 0; /* Padding around the header content */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: adds shadow for depth */
+}
+
+h1, #greeting {
+    margin: 0 10px; /* Adds space between the 'Main Page' and 'Welcome!' */
+    font-size: 24px; /* Ensures the font size is consistent */
+}
         /* css for style.css */
         /* Hamburger Menu Icon */
 .hamburger-menu {
@@ -366,7 +404,7 @@ button[type="button"] {
             padding: 12px 20px; /* Adjust button padding */
         }
     }
-        }
+        
 
         @media screen and (max-width: 768px) {
         .hamburger-menu {
@@ -417,7 +455,9 @@ button[type="button"] {
 </head>
 <body>
     <header>
+        
         <h1>Main Page</h1>
+        <h1 id="greeting">Welcome!</h1>
     </header>
     <div class="menu-toggle" id="menuToggle">
         <div class="bar"></div>
@@ -479,6 +519,10 @@ button[type="button"] {
                 <h2>Debt Account</h2>
                 <p>-12345.67</p>
             </div>
+            <div class="cell rightCell" id="noteTakingAccess" onclick="redirectToNoteTaking()">
+                <h2>Notes/Information</h2>
+                <p>Click Here For Either</p>
+            </div>
             
         </div>
     </div>
@@ -488,6 +532,9 @@ button[type="button"] {
         document.addEventListener('DOMContentLoaded', function() {
     fetchCategories();
 });
+function redirectToNoteTaking() {
+    window.location.href = "decision.html"; // Update this URL to where your note-taking application is hosted
+}
 function redirectToDetailsPage(accountName, amount, userName, accountNumber) {
     const queryParams = new URLSearchParams({
         accountName,
@@ -542,7 +589,7 @@ function fetchCategories() {
             }
         })
         .catch(error => console.error('Error fetching categories:', error));
-}
+
 
         function updateCategoryElements(categories) {
             categories.forEach((category, index) => {
