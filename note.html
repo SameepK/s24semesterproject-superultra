@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Enhanced Note Taker</title>
+
 <style>
     body {
         font-family: 'Arial', sans-serif;
@@ -108,8 +109,12 @@
                 }
                 return null;
             }
+            document.addEventListener('DOMContentLoaded', function() {
+            fetchNotes();  // Fetch notes as soon as the DOM is fully loaded
+            });
 
             window.onload = function() {
+                fetchNotes();
                 const username = getCookie("usercookie");
                 if (username) {
                     document.getElementById("greeting").textContent;
