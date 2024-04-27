@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-3974203-1', 'auto'); ga('send', 'pageview');</script>
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-3974203-1', 'auto'); ga('send', 'pageview');
     function getCookie(name) {
@@ -13,6 +14,28 @@
             }
             return null;
         }
+    function setCookie(name, value, days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + date.toUTCString();
+        document.cookie = `${name}=${value};${expires};path=/`;
+}
+function showPopup() {
+    const popup = document.getElementById("profile-popup");
+    popup.classList.add("show"); // Show the popup
+}
+
+function hidePopup() {
+    const popup = document.getElementById("profile-popup");
+    popup.classList.remove("show"); // Hide the popup
+}
+function selectProfile(img) {
+    setCookie("profile_pic", img.src, 7); // Store the selected profile picture in a cookie
+    hidePopup(); // Hide the popup after selection
+    document.getElementById("profile-img").src = img.src; // Update the header with the selected profile picture
+}
+
+
 
         window.onload = function() {
             const username = getCookie("usercookie");
@@ -20,6 +43,12 @@
                 document.getElementById("greeting").textContent = "Welcome back, " + username + "!";
             } else {
                 window.location.href = "index.html"; // Redirect to login if no cookie
+            }
+            const profilePicSrc = getCookie("profile_pic");
+            if (profilePicSrc) {
+                document.getElementById("profile-img").src = profilePicSrc; // Update header
+            } else {
+                showPopup(); // Display popup for profile selection
             }
         };
     </script>
@@ -450,15 +479,63 @@ button[type="button"] {
             padding: 12px 20px; /* Adjust button padding */
         }
     }
+    .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: white;
+            border: 1px solid lightgray;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0; /* Initial opacity for smooth transition */
+            visibility: hidden; /* Start hidden */
+            transition: opacity 0.5s; /* Transition for smooth fade-in */
+        }
+
+        .popup.show {
+            opacity: 1;
+            visibility: visible; /* Show the popup with smooth transition */
+        }
+
+        .profile-pics {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .profile-pics img {
+            width: 100px;
+            height: 100px;
+            border: 2px solid gray;
+            cursor: pointer;
+            transition: border-color 0.3s; /* Smooth hover effect */
+        }
+
+        .profile-pics img:hover {
+            border-color: blue; /* Change border color on hover */
+        }
 
     </style>
 </head>
 <body>
     <header>
-        
+        <img id="profile-img" src="" alt="Profile Picture" width="40" height="40">
         <h1>Main Page</h1>
         <h1 id="greeting">Welcome!</h1>
     </header>
+    <div class="popup" id="profile-popup">
+        <h2>Select Your Profile Picture</h2>
+        <div class="profile-pics">
+            <img src="jerry.png" onclick="selectProfile(this)">
+            <img src="harleyquinn.png" onclick="selectProfile(this)">
+            <img src="joker.png" onclick="selectProfile(this)">
+            <img src="robotguy.png" onclick="selectProfile(this)">
+            <img src="tom.png" onclick="selectProfile(this)">
+            <img src="wonderwoman.png" onclick="selectProfile(this)">
+        </div>
+    </div>
     <div class="menu-toggle" id="menuToggle">
         <div class="bar"></div>
         <div class="bar"></div>
