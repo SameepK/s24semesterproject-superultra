@@ -28,6 +28,11 @@ h2 {
   top:3pc;
 }
 
+.budgetOption.selected {
+  background-color: #b1e6fe; /* Choose a suitable highlight color */
+  font-weight: bold; /* Optional: Make the text bold for better visibility */
+}
+
 .budgetOption {
   background-color: #fff;
   border: 1px solid #ddd;
